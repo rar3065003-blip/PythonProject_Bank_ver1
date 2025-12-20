@@ -27,6 +27,7 @@ def mask_account_card(user_number_1: str) -> str:
 
 
 def get_date(date_user: str) -> str:
+    """Принимает данные с датой и выводит дату в формате ДД.ММ.ГГ"""
     date_1 = date_user[0:10]
     year, month, day = date_1.split("-")
 
