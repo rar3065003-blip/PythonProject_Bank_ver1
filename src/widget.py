@@ -12,7 +12,6 @@ def mask_account_card(user_number_1: str) -> str:
     if count_code not in (16, 20):
         return "Введите корректный номер Вашей карты или счета"
 
-
     card_number = user_number.split()[-1]
     if count_code == 20:
         mask = get_mask_account(int(card_number))
@@ -25,5 +24,9 @@ def mask_account_card(user_number_1: str) -> str:
 
     return "Неизвестный формат карты"
 
-def get_date():
-     pass
+
+def get_date(date_user: str) -> str:
+    date_1 = date_user[0: 10]
+    year, month, day = date_1.split('-')
+
+    return f'{day}.{month}.{year}'
