@@ -1,9 +1,9 @@
 def filter_by_state(user_calculate: list, state: str = "EXECUTED") -> list:
     """принимает список словарей и возвращает новый список словарей по значению 'state'"""
     result_selection = []
-    for i in user_calculate:
-        if i["state"] == state:
-            result_selection.append(i)
+    for dict_operation in user_calculate:
+        if dict_operation["state"] == state:
+            result_selection.append(dict_operation)
     return result_selection
 
 
