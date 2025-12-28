@@ -8,7 +8,7 @@ def filter_by_state(user_calculate: list, state: str = "EXECUTED") -> list:
     return result_selection
 
 
-def sort_by_date(date_calculate: list, reverse: bool = False) -> list:
+def sort_by_date(date_calculate: list, reverse: bool = True) -> list:
     """Принимает список словарей и порядок сортировки возвращает новый список с сортировкой по дате"""
 
     return sorted(date_calculate, key=lambda item: item["date"], reverse=reverse)
