@@ -4,7 +4,6 @@ def filter_by_state(user_calculate: list, state: str = "EXECUTED") -> list:
     for i in user_calculate:
         if i["state"] == state:
             result_selection.append(i)
-
     return result_selection
 
 
