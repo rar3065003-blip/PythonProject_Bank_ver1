@@ -2,9 +2,9 @@ from src.masks import get_mask_account
 from src.masks import get_mask_card_number
 
 
-def mask_account_card(user_number_1: str) -> str:
+def mask_account_card(user_card: str) -> str:
     """Принимает номер карты или счета и выводит ее маску"""
-    user_number = str(user_number_1)
+    user_number = str(user_card)
     count_code = 0
     for char in user_number:
         if char.isdigit():
@@ -28,7 +28,7 @@ def mask_account_card(user_number_1: str) -> str:
 
 def get_date(date_user: str) -> str:
     """Принимает данные с датой и выводит дату в формате ДД.ММ.ГГ"""
-    date_1 = date_user[0:10]
-    year, month, day = date_1.split("-")
+    date = date_user[0:10]
+    year, month, day = date.split("-")
 
     return f"{day}.{month}.{year}"
