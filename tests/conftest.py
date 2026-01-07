@@ -64,6 +64,34 @@ def transaction_canceled():
     ]
 
 
+@pytest.fixture
+def account_card_16():
+    """check length amount card"""
+    return '1234567891234567'
+
+@pytest.fixture
+def account_card_20():
+    """check length amount card"""
+    return '12345678912345678912'
+
+@pytest.fixture
+def length_account_card():
+    """check length amount card"""
+    return ' '
+
+@pytest.fixture
+def correct_mask_amount():
+    """check mask amount"""
+    return "123456789123456712"
+
+@pytest.fixture
+def correct_mask_card():
+    """check mask card"""
+    return "12345678512367"
+
+
+
+
 # @pytest.fixture
 # def transaction_none():
 #     """filter_by_state"""
