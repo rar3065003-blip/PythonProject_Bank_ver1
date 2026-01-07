@@ -2,8 +2,7 @@ import pytest
 
 
 @pytest.fixture
-# сырые данные для создания transaction для передачи в test_processing
-def transaction():
+def transaction() -> list:
     """sort_by_date"""
     return [
         {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
@@ -14,7 +13,7 @@ def transaction():
 
 
 @pytest.fixture
-def result_reverse_true():
+def result_reverse_true() -> list:
     """sort_by_date"""
     return [
         {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
@@ -25,7 +24,7 @@ def result_reverse_true():
 
 
 @pytest.fixture
-def result_reverse_false():
+def result_reverse_false() -> list:
     """sort_by_date"""
     return [
         {"date": "2018-06-30T02:08:58.425572", "id": 939719570, "state": "EXECUTED"},
@@ -36,7 +35,7 @@ def result_reverse_false():
 
 
 @pytest.fixture
-def transaction_1():
+def transaction_1() -> list:
     """filter_by_state"""
     return [
         {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
@@ -47,7 +46,7 @@ def transaction_1():
 
 
 @pytest.fixture
-def transaction_executed():
+def transaction_executed() -> list:
     """filter_by_state"""
     return [
         {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
@@ -56,7 +55,7 @@ def transaction_executed():
 
 
 @pytest.fixture
-def transaction_canceled():
+def transaction_canceled() -> list:
     """filter_by_state"""
     return [
         {"id": 594226727, "state": "CANCELED", "date": "2018-09-12T21:27:25.241689"},
@@ -65,34 +64,30 @@ def transaction_canceled():
 
 
 @pytest.fixture
-def account_card_16():
+def account_card_16() -> str:
     """check length amount card"""
-    return '1234567891234567'
+    return "1234567891234567"
+
 
 @pytest.fixture
-def account_card_20():
+def account_card_20() -> str:
     """check length amount card"""
-    return '12345678912345678912'
+    return "12345678912345678912"
+
 
 @pytest.fixture
-def length_account_card():
+def length_account_card() -> str:
     """check length amount card"""
-    return ' '
+    return " "
+
 
 @pytest.fixture
-def correct_mask_amount():
+def correct_mask_amount() -> str:
     """check mask amount"""
     return "123456789123456712"
 
+
 @pytest.fixture
-def correct_mask_card():
+def correct_mask_card() -> str:
     """check mask card"""
     return "12345678512367"
-
-
-
-
-# @pytest.fixture
-# def transaction_none():
-#     """filter_by_state"""
-#     return [{}]

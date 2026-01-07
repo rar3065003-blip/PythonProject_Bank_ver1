@@ -1,4 +1,5 @@
-from src.processing import sort_by_date, filter_by_state
+from src.processing import filter_by_state
+from src.processing import sort_by_date
 
 
 def test_filter_by_state(transaction_1: list, transaction_executed: list, transaction_canceled: list) -> None:

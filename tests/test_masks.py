@@ -1,5 +1,7 @@
-from src.masks import get_mask_card_number, get_mask_account
 import pytest
+
+from src.masks import get_mask_account
+from src.masks import get_mask_card_number
 
 
 @pytest.mark.parametrize(
@@ -24,7 +26,7 @@ def test_get_mask_card_number(account: int, expected: int) -> None:
         (3216549823654789654688, "Введите  номер счета 20 цифр"),
     ],
 )
-def test_get_mask_account_mask(account:int, expected:int) -> None:
+def test_get_mask_account_mask(account: int, expected: int) -> None:
     """тестирование согласно тестовым даннным parametrize:
     корректность вывода маски, корректность количества введенных цифр"""
     assert get_mask_account(account) == expected
