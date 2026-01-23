@@ -1,38 +1,24 @@
 import pytest
+
 from src.generators import filter_by_currency
 
 
-@pytest.fixture
-def fix_currency():
-    return ({
-        "id": 939719570,
-        "state": "EXECUTED",
-        "date": "2018-06-30T02:08:58.425572",
-        "operationAmount": {
-            "amount": "9824.07",
-            "currency": {
-                "name": "USD",
-                "code": "USD"
-            }
-        },
-        "description": "Перевод организации",
-        "from": "Счет 75106830613657916952",
-        "to": "Счет 11776614605963066702"
-    })
+def test_filter_by_currency_with_usd_transaction(fix_currency):
+    transactions = [fix_currency]
+    result = list(filter_by_currency(transactions, "USD"))
+    assert len(result) == 1
+    assert result[0]["operationAmount"]["currency"]["code"] == "USD"
 
-def test_func1(fix_currency):
-    assert filter_by_currency(transactions, code) == ({
-        "id": 939719570,
-        "state": "EXECUTED",
-        "date": "2018-06-30T02:08:58.425572",
-        "operationAmount": {
-            "amount": "9824.07",
-            "currency": {
-                "name": "USD",
-                "code": "USD"
-            }
-        },
-        "description": "Перевод организации",
-        "from": "Счет 75106830613657916952",
-        "to": "Счет 11776614605963066702"
-    })
+def test_filter_by_currency_empty_result_for_wrong_code(fix_currency):
+    transactions = [fix_currency]
+    result = list(filter_by_currency(transactions, "RUB"))
+    assert len(result) == 0
+
+def test_filter_by_transaction_w_o_currency(fix_currency):
+    transactions = [fix_currency]
+    result = list(filter_by_currency(transactions, ""))
+    assert len(result) == 0
+
+def test_filter_by_currency_handles_empty_list():
+    result = list(filter_by_currency([], "USD"))
+    assert len(result) == 0

@@ -8,6 +8,8 @@ def filter_by_currency(transactions, code) -> Iterator:
 
 
 def transaction_descriptions(transactions: list) -> Iterator:
+    if not transactions:
+        return
     while True:
         for transaction in transactions:
             transaction.get("description")

@@ -92,9 +92,10 @@ def correct_mask_card() -> str:
     """check mask card"""
     return "12345678512367"
 
+
 @pytest.fixture
-def fix_currency():
-    return ({
+def fix_currency() -> dict:
+    return {
         "id": 939719570,
         "state": "EXECUTED",
         "date": "2018-06-30T02:08:58.425572",
@@ -108,4 +109,4 @@ def fix_currency():
         "description": "Перевод организации",
         "from": "Счет 75106830613657916952",
         "to": "Счет 11776614605963066702"
-    })
+    }
