@@ -1,25 +1,21 @@
-from typing import Any, Generator
-import random
+from typing import Any, Generator, Iterator
 
 
-def filter_by_currency(transactions, code) :
+def filter_by_currency(transactions, code) -> Iterator:
     return (transaction for transaction in transactions if transaction.get("operationAmount", {})
         .get("currency", {})
         .get("code") == code)
 
 
-def transaction_descriptions(transactions: list) -> Generator[None, Any, Any]:
+def transaction_descriptions(transactions: list) -> Iterator:
     while True:
         for transaction in transactions:
             transaction.get("description")
             yield transaction
 
 
-def card_number_generator(start, stop):
-    while True:
-        temp = str(f'{random.randint(0000000000000000, 9999999999999999 ):016d}')
-        result = " ".join(temp[i: i + 4] for i in range(0, len(temp), 4))
-        for i in range(start, stop):
-            result += i
-        yield result
-# задать диапазон номеров видимо по последней цифре
+def card_number_generator(start, stop) -> Generator:
+    for i in range(start, stop + 1):
+        result = f'{i:016d}'
+        result_1 = " ".join(result[a: a + 4] for a in range(0, len(result), 4))
+        yield result_1
