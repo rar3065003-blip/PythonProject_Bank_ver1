@@ -3,18 +3,9 @@ import random
 
 
 def filter_by_currency(transactions, code) :
-    for transaction in transactions:
-        currency_code = (
-        transaction.get("operationAmount", {})
+    return (transaction for transaction in transactions if transaction.get("operationAmount", {})
         .get("currency", {})
-        .get("code"))
-        if currency_code == code:
-            yield transaction
-
-
-usd_transactions = filter_by_currency(transactions, "USD")
-for _ in range(2):
-    print(next(usd_transactions))
+        .get("code") == code)
 
 
 def transaction_descriptions(transactions: list) -> Generator[None, Any, Any]:
