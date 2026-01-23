@@ -28,5 +28,7 @@ def card_number_generator(start, stop):
     while True:
         temp = str(f'{random.randint(0000000000000000, 9999999999999999 ):016d}')
         result = " ".join(temp[i: i + 4] for i in range(0, len(temp), 4))
+        for i in range(start, stop):
+            result += i
         yield result
 # задать диапазон номеров видимо по последней цифре
