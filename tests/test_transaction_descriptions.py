@@ -1,14 +1,7 @@
-import pytest
-
 from src.generators import transaction_descriptions
 
-
-def test_transaction_descriptions(fix_currency):
-    transaction = [fix_currency]
-    result = list(transaction_descriptions(transaction))
-    assert len(result) == 1
-    assert result[0]['description'] == "Перевод организации"
-
-def test_empty_transaction_description(fix_currency):
-    result = list(transaction_descriptions([]))
-    assert len(result) == 0
+def test_transaction_description(fix_currency, fix_currency_empty_transaction):
+    test_1 = list(transaction_descriptions(fix_currency))
+    test_2 = list(transaction_descriptions(fix_currency_empty_transaction))
+    assert test_1[0] == "Перевод организации"
+    assert test_2[0] == ""
