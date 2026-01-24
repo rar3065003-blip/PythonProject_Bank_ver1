@@ -11,7 +11,7 @@ def filter_by_currency(transactions, code) -> Iterator:
 def transaction_descriptions(transactions: list):
     """ Принимает список словарей транзакций возвращает действие со счетом"""
     if not transactions:
-        return
+        raise ValueError("Не корректный список транзакций")
     for transaction in transactions:
          yield transaction.get('description')
 
