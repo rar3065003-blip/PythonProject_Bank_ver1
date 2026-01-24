@@ -24,6 +24,7 @@ def test_filter_by_currency_with_usd_transaction(fix_currency):
 
 
 def test_transaction_description(fix_currency):
+    """Тест на выполение вывода типа операции со средствами клиента"""
     test_1 = list(transaction_descriptions(fix_currency))
     assert test_1[0] == "Перевод организации"
     assert list(transaction_descriptions([])) == []

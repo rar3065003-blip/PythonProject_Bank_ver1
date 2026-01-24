@@ -94,7 +94,7 @@ def correct_mask_card() -> str:
 
 
 @pytest.fixture
-def fix_currency():
+def fix_currency() -> list:
     """транзакций теста"""
     return [
         {
