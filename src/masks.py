@@ -14,7 +14,7 @@ def get_mask_card_number(numbers_1: int) -> str:
 
         result = part_1 + part_2 + part_3 + part_4
         temp = "".join(result)
-        hidden_number = " ".join(temp[i: i + 4] for i in range(0, len(temp), 4))
+        hidden_number = " ".join(temp[i : i + 4] for i in range(0, len(temp), 4))
 
     return hidden_number
 
