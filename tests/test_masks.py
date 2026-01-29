@@ -27,6 +27,6 @@ def test_get_mask_card_number(account: int, expected: int) -> None:
     ],
 )
 def test_get_mask_account_mask(account: int, expected: int) -> None:
-    """тестирование согласно тестовым даннным parametrize:
+    """тестирование согласно тестовым данным parametrize:
     корректность вывода маски, корректность количества введенных цифр"""
     assert get_mask_account(account) == expected
