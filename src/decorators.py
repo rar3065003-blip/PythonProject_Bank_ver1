@@ -34,10 +34,10 @@ def log(filename: Any = None) -> Callable:
 
     return decorator
 
-@log()
-def my_function(x, y):
-    return x / y
-
-my_function(5,2)
+# @log()
+# def my_function(x, y):
+#     return x / y
+#
+# my_function(5,2)
 
 # filename="mylog.txt"
