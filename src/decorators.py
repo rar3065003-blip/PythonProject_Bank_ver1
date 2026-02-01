@@ -13,16 +13,16 @@ def log(filename: Any = None) -> Callable:
         def wrapper(*args: tuple, **kwargs: dict) -> Any:
             """Оборачиваем функцию и запускаем запись и вычисление времени работы"""
             start = time.time()
-            msg = f"{start}ms {func.__name__} started \n"
+            msg = f"{start} s {func.__name__} started \n"
             result = None
             try:
                 result = func(*args, **kwargs)
             except Exception as w:
-                msg += f"{func.__name__} raised with arguments {args, kwargs} but it didn`t worked, error:{str(w)} \n"
+                msg = f"{func.__name__} raised with arguments {args, kwargs}\n but it didn`t worked, error:{str(w)} \n"
             finally:
                 finish = time.time()
-                raise_time = finish - start
-                msg += f"{raise_time}ms {func.__name__} finished"
+                raise_time = (finish - start)*1000
+                msg += f"{raise_time} s {func.__name__} finished"
                 if filename:
                     with open(filename, mode="a", encoding="utf-8") as x:
                         x.write(msg + "\n")
@@ -33,3 +33,11 @@ def log(filename: Any = None) -> Callable:
         return wrapper
 
     return decorator
+
+@log()
+def my_function(x, y):
+    return x / y
+
+my_function(5,2)
+
+# filename="mylog.txt"
