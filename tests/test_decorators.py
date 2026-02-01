@@ -8,4 +8,4 @@ def test_log() -> None:
     def delite(a: int, b: int) -> float:
         return a / b
     result = delite(66546,3468426)
-    assert result == 2.0
+    assert result == 0.01918622452951281
