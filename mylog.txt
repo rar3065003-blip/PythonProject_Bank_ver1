@@ -1,0 +1,2 @@
+1769926624.864799 s my_function started 
+0.03838539123535156 s my_function finished
