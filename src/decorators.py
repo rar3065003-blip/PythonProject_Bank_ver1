@@ -1,14 +1,16 @@
-import time
 import functools
+import time
 from collections.abc import Callable
 from typing import Any
 
 
 def log(filename: Any = None) -> Callable:
-    """ Функция записи лога выполнения исполняемой функции -
-     сохраняет в лог в файл при задании имени или выводит в консоль"""
+    """Функция записи лога выполнения исполняемой функции -
+    сохраняет в лог в файл при задании имени или выводит в консоль"""
+
     def decorator(func: Callable) -> Callable:
         """Принимает вызов функции"""
+
         @functools.wraps(func)
         def wrapper(*args: tuple, **kwargs: dict) -> Any:
             """Оборачиваем функцию и запускаем запись и вычисление времени работы"""
@@ -21,7 +23,7 @@ def log(filename: Any = None) -> Callable:
                 msg = f"{func.__name__} raised with arguments {args, kwargs}\n but it didn`t worked, error:{str(w)} \n"
             finally:
                 finish = time.time()
-                raise_time = (finish - start)*1000
+                raise_time = (finish - start) * 1000
                 msg += f"{raise_time} s {func.__name__} finished"
                 if filename:
                     with open(filename, mode="a", encoding="utf-8") as x:
@@ -34,10 +36,12 @@ def log(filename: Any = None) -> Callable:
 
     return decorator
 
+
 @log("mylog.txt")
 def my_function(x, y):
     return x / y
 
-my_function(5,2)
+
+my_function(5, 2)
 
 # filename="mylog.txt"

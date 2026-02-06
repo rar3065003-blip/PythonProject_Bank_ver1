@@ -2,12 +2,15 @@ import json
 import os
 from json import JSONDecodeError
 
+import external_api
 
-def dict_transactions(file_json_dict:str) -> list[dict]:
+
+def dict_transactions(file_json_dict: str) -> list[dict]:
     list_result = []
-    file_exist:bool = os.path.exists(file_json_dict)
-    if not file_exist: return list_result
-    with open(file_json_dict, encoding = "utf8") as f:
+    file_exist: bool = os.path.exists(file_json_dict)
+    if not file_exist:
+        return list_result
+    with open(file_json_dict, encoding="utf8") as f:
         try:
             x = json.load(f)
         except JSONDecodeError:
@@ -15,3 +18,12 @@ def dict_transactions(file_json_dict:str) -> list[dict]:
     if not isinstance(x, list):
         return list_result
     return x
+
+
+def convertation_currency(transaction: dict) -> float:
+    currency: str = transaction.get("operationAmount", {}).get("currency", {}).get("code", "")
+    amount: float = float(transaction.get("operationAmount", {}).get("amount", 0))
+    if currency == "RUB":
+        return amount
+    result_return: float = external_api.exchange_rates_data(currency, amount)
+    return result_return
