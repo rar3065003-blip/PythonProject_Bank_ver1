@@ -1,5 +1,3 @@
-import json
-
 import pytest
 
 
@@ -117,12 +115,13 @@ def fix_currency() -> list:
             "from": "Счет 19708645243227258542",
             "to": "Счет 75651667383060284188",
         },
+        {
+            "id": 142264254,
+            "state": "EXECUTED",
+            "date": "2019-04-04T23:20:05.206878",
+            "operationAmount": {"amount": "79114.93", "currency": {"name": "USD", "code": "RUB"}},
+            "description": "Перевод со счета на счет",
+            "from": "Счет 19708645243227258542",
+            "to": "Счет 75651667383060284188",
+        },
     ]
-
-
-@pytest.fixture
-def transaction_example()-> list[dict]:
-    with open("../data/operations.json" , encoding="utf8") as f:
-        x = json.load(f)
-
-        return x

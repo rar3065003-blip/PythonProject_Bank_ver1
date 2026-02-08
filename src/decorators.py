@@ -3,6 +3,8 @@ import time
 from collections.abc import Callable
 from typing import Any
 
+from config import ROOT_DIR
+
 
 def log(filename: Any = None) -> Callable:
     """Функция записи лога выполнения исполняемой функции -
@@ -26,7 +28,7 @@ def log(filename: Any = None) -> Callable:
                 raise_time = (finish - start) * 1000
                 msg += f"{raise_time} s {func.__name__} finished"
                 if filename:
-                    with open(filename, mode="a", encoding="utf-8") as x:
+                    with open(f"{ROOT_DIR}/data/{filename}", mode="a", encoding="utf-8") as x:
                         x.write(msg + "\n")
                 else:
                     print(msg)
@@ -38,7 +40,7 @@ def log(filename: Any = None) -> Callable:
 
 
 @log("mylog.txt")
-def my_function(x, y):
+def my_function(x: int, y: int) -> Any:
     return x / y
 
 

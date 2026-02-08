@@ -1,7 +1,7 @@
+from src.utils import convertation_currency
+from src.utils import dict_transactions
 from src.widget import get_date
 from src.widget import mask_account_card
-from utils import convertation_currency
-from utils import dict_transactions
 
 if __name__ == "__main__":
     result_1 = mask_account_card("Maestro 1596837868705199")
@@ -13,6 +13,6 @@ if __name__ == "__main__":
 
     results: list[dict] = dict_transactions("../data/operations.json")
     for i in results:
-        result_2: float = convertation_currency(i)
-        print(result_2)
+        result_data: float = convertation_currency(i)
+        print(result_data)
         break

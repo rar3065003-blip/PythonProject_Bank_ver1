@@ -1,4 +1,3 @@
-
 from src.decorators import log
 
 
@@ -11,3 +10,4 @@ def test_log() -> None:
 
     result = delite(66546, 3468426)
     assert result == 0.01918622452951281
+    result = delite("jhgfjhg", "sdhj")
