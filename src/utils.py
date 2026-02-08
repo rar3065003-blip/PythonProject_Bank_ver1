@@ -1,11 +1,11 @@
 import json
 import os
 from json import JSONDecodeError
-
-import external_api
+from src import external_api
 
 
 def dict_transactions(file_json_dict: str) -> list[dict]:
+    """Принимает json файл и возвращает список транзакций в формате *.py """
     list_result = []
     file_exist: bool = os.path.exists(file_json_dict)
     if not file_exist:
@@ -21,9 +21,12 @@ def dict_transactions(file_json_dict: str) -> list[dict]:
 
 
 def convertation_currency(transaction: dict) -> float:
+    """Принимает транзакцию в виде словаря и возвращает сумму транзакции,
+     конвертированную в рубли по курсу на сегодняшний день, либо просто в рублях"""
     currency: str = transaction.get("operationAmount", {}).get("currency", {}).get("code", "")
     amount: float = float(transaction.get("operationAmount", {}).get("amount", 0))
     if currency == "RUB":
         return amount
     result_return: float = external_api.exchange_rates_data(currency, amount)
+    print(result_return)
     return result_return

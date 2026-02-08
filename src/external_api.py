@@ -10,7 +10,7 @@ API_KEY = os.getenv("API_KEY")
 
 
 def exchange_rates_data(currency: str, amount: float) -> float:
-    """Функция конвертации валюты по API"""
+    """Функция конвертации валюты по API в рубли по текущему курсу """
     url: str = "https://api.apilayer.com/exchangerates_data/convert"
     payload: dict = {"amount": amount, "from": currency, "to": "RUB"}
     headers: dict = {"apikey": API_KEY}
@@ -20,8 +20,9 @@ def exchange_rates_data(currency: str, amount: float) -> float:
     if status_code == 200:
         try:
             result: dict = response.json()
-            result_exch = result.get("result", 0)
+            result_exch: float = result.get("result", 0)
             return result_exch
         except JSONDecodeError:
             return 0
     return 0
+

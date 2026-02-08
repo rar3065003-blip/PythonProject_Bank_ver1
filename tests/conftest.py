@@ -1,3 +1,5 @@
+import json
+
 import pytest
 
 
@@ -116,3 +118,11 @@ def fix_currency() -> list:
             "to": "Счет 75651667383060284188",
         },
     ]
+
+
+@pytest.fixture
+def transaction_example()-> list[dict]:
+    with open("../data/operations.json" , encoding="utf8") as f:
+        x = json.load(f)
+
+        return x
