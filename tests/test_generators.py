@@ -9,13 +9,13 @@ from src.generators import transaction_descriptions
     "start, stop, expected",
     [(597, 597, "0000 0000 0000 0597"), (0, 695, "0000 0000 0000 0000"), (659, 0, "0000 0000 0000 0000")],
 )
-def test_card_number_generator(start, stop, expected) -> None:
+def test_card_number_generator(start: int, stop: int, expected: str) -> None:
     """тестирование согласно тестовым данным parametrize:
     заданные значения, пустой старт, пустой 'stop'"""
     assert next(card_number_generator(start, stop)) == expected
 
 
-def test_filter_by_currency_with_usd_transaction(fix_currency):
+def test_filter_by_currency_with_usd_transaction(fix_currency: list[dict]) -> None:
     """Тесты на выполненние кода с заполнением и без"""
     result = list(filter_by_currency(fix_currency, "USD"))  # успешный
     result_2 = list(filter_by_currency(fix_currency, ""))  # не успешный
@@ -23,7 +23,7 @@ def test_filter_by_currency_with_usd_transaction(fix_currency):
     assert result_2 == []
 
 
-def test_transaction_description(fix_currency):
+def test_transaction_description(fix_currency: list[dict]) -> None:
     """Тест на выполение вывода типа операции со средствами клиента"""
     test_1 = list(transaction_descriptions(fix_currency))
     assert test_1[0] == "Перевод организации"
