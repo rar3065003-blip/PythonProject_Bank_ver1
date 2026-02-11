@@ -1,24 +1,12 @@
+from logs.logger_utils import setup_logging_utils
+import logging
 import json
 import os
 from json import JSONDecodeError
-import logging
 from config import ROOT_DIR
 from src import external_api
 
-def setup_logging_utils():
-    logging.basicConfig(level=logging.DEBUG,
-                        format= '%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-                        filename ='application.log',
-                        filemode='w')
-    global dict_transactions_logs, convertation_currency_logs
-
-    # логеры компонентов функций
-    # директория utils
-    dict_transactions_logs = logging.getLogger('app.dict_transactions')
-    convertation_currency_logs = logging.getLogger('app.convertation_currency')
-
-setup_logging_utils()
-
+logger = setup_logging_utils()
 
 def dict_transactions(file_json_dict: str) -> list[dict]:
     """Принимает json файл и возвращает список транзакций в формате *.py"""
