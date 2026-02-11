@@ -2,6 +2,7 @@ from logs.logger_masks import setup_logging
 
 logger = setup_logging()
 
+
 def get_mask_card_number(numbers_1: int) -> str:
     """Принимает на вход номер карты и возвращает маску номера карты"""
     logger.info("Запуск функции get_mask_card_number")
@@ -38,9 +39,3 @@ def get_mask_account(account_1: int) -> str:
         part_sum = part_mask + part_account
         logger.info("Окончание работы функции get_mask_account")
     return part_sum
-
-
-result = get_mask_account(1234568923456787978)
-print(result)
-result_2 = get_mask_card_number(123457891234567)
-print(result_2)
