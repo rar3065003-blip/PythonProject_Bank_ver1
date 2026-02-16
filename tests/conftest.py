@@ -125,3 +125,7 @@ def fix_currency() -> list:
             "to": "Счет 75651667383060284188",
         },
     ]
+
+@pytest.fixture
+def csv_transaction() -> dict:
+    return
