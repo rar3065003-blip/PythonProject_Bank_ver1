@@ -1,8 +1,6 @@
-from unittest.mock import mock_open, Mock
+from unittest.mock import mock_open
 from unittest.mock import patch
-import pandas as pd
 import pytest
-
 from src.csv_excel_module import csv_module
 
 
@@ -19,24 +17,22 @@ Discover 3172601889670065;Discover 0720428384694643;
 TZS;Visa 1959232722494097;Visa 6804119550473710;
 Перевод с карты на карту
 """
-    with patch('builtins.open', mock_open(read_data=csv_data)):
-        result = csv_module('wrong_path.csv')
+    with patch("builtins.open", mock_open(read_data=csv_data)):
+        result = csv_module("wrong_path.csv")
     assert len(result) == 10
-    assert result[0] == {'id;state;date;amount;currency_name;':
-                    '    currency_code;from;to;description'}
-    assert result[1] == {'id;state;date;amount;currency_name;':
-                        '650703;EXECUTED;2023-09-05T11:30:32Z;'
-                        '16210;Sol;PEN;'}
+    assert result[0] == {"id;state;date;amount;currency_name;": "    currency_code;from;to;description"}
+    assert result[1] == {
+        "id;state;date;amount;currency_name;": "650703;EXECUTED;2023-09-05T11:30:32Z;" "16210;Sol;PEN;"
+    }
 
 
-def test_empty_csv_transactions_file():
-    with patch('builtins.open', mock_open(read_data='')):
-        result = csv_module('empty.csv')
+def test_empty_csv_transactions_file() -> None:
+    with patch("builtins.open", mock_open(read_data="")):
+        result = csv_module("empty.csv")
     assert result == []
 
 
-def test_csv_module_file_not_found():
-    with patch('builtins.open', side_effect = FileNotFoundError):
+def test_csv_module_file_not_found() -> None:
+    with patch("builtins.open", side_effect=FileNotFoundError):
         with pytest.raises(FileNotFoundError):
-            csv_module('Error_file.csv')
-
+            csv_module("Error_file.csv")
