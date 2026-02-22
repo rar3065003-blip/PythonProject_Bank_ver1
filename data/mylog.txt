@@ -30,3 +30,5 @@
 0.041484832763671875 s my_function finished
 1771685381.1355627 s my_function started 
 0.09489059448242188 s my_function finished
+1771687180.92384 s my_function started 
+0.06413459777832031 s my_function finished

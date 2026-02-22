@@ -2,8 +2,6 @@ import json
 import logging
 import os
 from json import JSONDecodeError
-
-from config import ROOT_DIR
 from logs.logger_utils import setup_logging_utils
 from src import external_api
 
@@ -14,17 +12,23 @@ def dict_transactions(file_json_dict: str) -> list[dict]:
     """Принимает json файл и возвращает список транзакций в формате *.py"""
     logging.info("Запуск функции dict_transactions")
     list_result: list = []
-    path_filename: str = f"{ROOT_DIR}{file_json_dict}"
+
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    path_filename: str = os.path.join(base_dir, file_json_dict)
+    logging.debug(f"Проверяем существование файла: {path_filename}")
+
     file_exist: bool = os.path.exists(path_filename)
     if not file_exist:
-        logger.error("Файл отсутствует")
+        logger.error("Файл отсутствует: {path_filename}")
         return list_result
-    with open(path_filename, encoding="utf8") as f:
+
+    with open(path_filename, encoding="utf-8") as f:
         try:
             x = json.load(f)
         except JSONDecodeError:
             logger.error("Не корректный формат файла")
             return list_result
+
     if not isinstance(x, list):
         logger.error("Файл пуст")
         return list_result

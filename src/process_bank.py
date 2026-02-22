@@ -14,8 +14,8 @@ def process_bank_search(data:list[dict], search:str)->list[dict]:
 
 
 def process_bank_operations(data:list[dict], categories:list)->dict:
-    """ Функция принимает список транзакций,
-     а возвращает словарь, где отражается вид и количество запрошенных операций"""
+    """ Функция принимает список транзакций,а возвращает словарь,
+     где отражается вид и считает количество запрошенных операций"""
     matched_categories = []
     compiled_patterns = {}
 
