@@ -7,22 +7,6 @@ from src.utils import dict_transactions
 from src.widget import get_date
 from src.widget import mask_account_card
 
-if __name__ == "__main__":
-
-    result_1 = mask_account_card("Maestro 1596837868705199")
-    result_2 = mask_account_card("Счет 73654108430135874305")
-    result_3 = get_date("2024-03-11T02:26:18.671407")
-    print(result_1)
-    print(result_2)
-    print(result_3)
-
-
-    results: list[dict] = dict_transactions("../data/operations.json")
-    for i in results:
-        result_data: float = convertation_currency(i)
-        print(result_data)
-        break
-
 def run_project():
     global result_ance
     while True:
@@ -30,7 +14,8 @@ def run_project():
         user_input = (input("Выберите необходимый пункт меню: "
                          "1. Получить информацию о транзакциях из JSON-файла\n"
                          "2. Получить информацию о транзакциях из CSV-файла\n"
-                         "3. Получить информацию о транзакциях из XLSX-файла"))
+                         "3. Получить информацию о транзакциях из XLSX-файла\n"
+                            "Ваш выбор:"))
         if user_input == "1":
             print("Для обработки выбран JSON-файл")
             result = dict_transactions("../data/operations.json")
@@ -49,7 +34,8 @@ def run_project():
     while True:
         valid_statuses = ["EXECUTED", "CANCELED", "PENDING"]
         status_input = input("Введите статус, по которому необходимо выполнить фильтрацию.\n"
-              "Доступные для фильтровки статусы: EXECUTED, CANCELED, PENDING")
+              "Доступные для фильтровки статусы: EXECUTED, CANCELED, PENDING\n"
+                             "Ваш выбор:")
         status_upper = status_input.upper()
         if status_upper in valid_statuses:
             filtered_result = filter_by_state(result, status_upper)
@@ -59,26 +45,31 @@ def run_project():
             continue
 
     while True:
-        user_ance = input("Отсортировать операции по дате? Да/Нет")
+        user_ance = input("Отсортировать операции по дате? Да/Нет :")
         if user_ance.lower() == "да":
-            sort_qest = input("Отсортировать по возрастанию или по убыванию?").lower()
-            if sort_qest == "по возрастанию":
-                result_ance = sort_by_date(filtered_result, reverse=False)
-            if sort_qest == "по убыванию":
-                result_ance = sort_by_date(filtered_result, reverse=True)
-            else:
-                continue
+            while True:
+                sort_qest = input("Отсортировать по возрастанию или по убыванию? :").lower()
+                if sort_qest == "по возрастанию":
+                    result_ance = sort_by_date(filtered_result, reverse=False)
+                    break
+                if sort_qest == "по убыванию":
+                    result_ance = sort_by_date(filtered_result, reverse=True)
+                    break
+                else:
+                    print("Неверный вариант сортировки. Введите 'по возрастанию' или 'по убыванию'.")
+
             break
-        if user_ance.lower() == "нет":
+
+        elif user_ance.lower() == "нет":
             result_ance = filtered_result
             break
         else:
-            print(f"Не верная команда сортировки")
-            continue
+            print("Не верная команда сортировки. Введите 'Да' или 'Нет'.")
+
     while True:
         ance_user_transaction = input("Выводить только рублевые транзакции? Да/Нет")
         if ance_user_transaction.lower() == "да":
-            result_user_transaction = filter_by_currency(result_ance, "RUB" )
+            result_user_transaction = list(filter_by_currency(result_ance, "RUB" ))
             break
         if ance_user_transaction.lower() == "нет":
             result_user_transaction = result_ance
@@ -123,8 +114,14 @@ def run_project():
             masked_to = mask_account_card(to_account) if to_account else ""
 
             # 4. Обработка суммы и валюты
-            amount = transaction.get('amount', 0)
-            currency = transaction.get('currency', 'N/A')
+            operation_amount = transaction.get("operationAmount", {})
+            if operation_amount:
+                amount = operation_amount.get("amount", "0")
+                currency_info = operation_amount.get("currency", {})
+                currency = currency_info.get("name", "N/A")
+            else:
+                amount = "0"
+                currency = "N/A"
             amount_str = f"{amount} {currency}"
 
             # 5. Форматированный вывод одной транзакции
@@ -136,3 +133,18 @@ def run_project():
             print(f"Сумма: {amount_str}\n")  # перенос строки между транзакциями
 
 
+if __name__ == "__main__":
+    # result_1 = mask_account_card("Maestro 1596837868705199")
+    # result_2 = mask_account_card("Счет 73654108430135874305")
+    # result_3 = get_date("2024-03-11T02:26:18.671407")
+    # print(result_1)
+    # print(result_2)
+    # print(result_3)
+    #
+    # results: list[dict] = dict_transactions("../data/operations.json")
+    # for i in results:
+    #     result_data: float = convertation_currency(i)
+    #     print(result_data)
+    #     break
+
+    run_project()
