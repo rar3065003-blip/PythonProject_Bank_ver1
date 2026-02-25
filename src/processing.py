@@ -1,18 +1,11 @@
-# def filter_by_state(user_calculate: list, state: str = "EXECUTED") -> list:
-#     """принимает список словарей и возвращает новый список словарей по значению 'state'"""
-#     result_selection = []
-#     for dict_operation in user_calculate:
-#         if dict_operation["state"] == state:
-#             result_selection.append(dict_operation)
-#     return result_selection
 def filter_by_state(user_calculate: list, state: str = "EXECUTED") -> list:
-    """Принимает список словарей и возвращает новый список словарей по значению 'state'."""
+    """принимает список словарей и возвращает новый список словарей по значению 'state'"""
     result_selection = []
     for dict_operation in user_calculate:
-        current_state = dict_operation.get("state", "")
-        if current_state == state:
+        if dict_operation["state"] == state:
             result_selection.append(dict_operation)
     return result_selection
+
 
 def sort_by_date(date_calculate: list, reverse: bool = True) -> list:
     """Принимает список словарей и порядок сортировки возвращает новый список с сортировкой по дате"""

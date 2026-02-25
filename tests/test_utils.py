@@ -3,23 +3,32 @@ from unittest.mock import mock_open
 from unittest.mock import patch
 
 import pytest
-
 from src.external_api import exchange_rates_data
 from src.utils import convertation_currency
-from src.utils import dict_transactions
+from src.utils import dict_transactions_to_json
 
 
-def test_dict_transactions() -> None:
+def test_dict_transactions_to_json() -> None:
     with patch("os.path.exists") as file_exist:
         file_exist.return_value = False
-        assert dict_transactions("") == []
+        assert dict_transactions_to_json(' ') == []
         file_exist.return_value = True
-        with patch("builtins.open", mock_open(read_data="")):
-            assert dict_transactions("") == []
-        with patch("builtins.open", mock_open(read_data='{"art":345}')):
-            assert dict_transactions("") == []
-        with patch("builtins.open", mock_open(read_data='[{"art":345}]')):
-            assert dict_transactions("") == [{"art": 345}]
+
+def test_right_result() -> None:
+    with patch("os.path.exists") as file_exist:
+        file_exist.return_value = True
+        with patch("builtins.open", mock_open(read_data= '[{"id": 456862849}]')):
+            result = dict_transactions_to_json("")
+            assert result[0].get('id') == 456862849
+
+def test_wrong_format() -> None:
+    with patch("os.path.exists") as file_exist:
+        file_exist.return_value = True
+        with patch("builtins.open", pytest.raises(JSONDecodeError)):
+            dict_transactions_to_json("")
+            assert dict_transactions_to_json("") == []
+
+
 
 
 def test_convertation_currency(fix_currency: list[dict]) -> None:

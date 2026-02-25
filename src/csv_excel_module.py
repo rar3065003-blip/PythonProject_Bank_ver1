@@ -8,7 +8,7 @@ def csv_module(df: str) -> list[dict]:
     и возвращает список словарей"""
     result_dict = []
     with open(df, newline="", encoding="utf-8") as file:
-        reader = csv.DictReader(file)
+        reader = csv.DictReader(file, delimiter=';')
         for row in reader:
             result_dict.append(row)
         return result_dict
