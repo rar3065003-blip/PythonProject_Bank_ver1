@@ -12,5 +12,5 @@ test_data = [
      'from': 'Visa 1959232722494097', 'to': 'Visa 6804119550473710', 'description': 'Перевод с карты на карту'}
 ]
 
-count_description = Counter(test_data)
-print(count_description)
+# count_description = Counter(test_data)
+# print(count_description)

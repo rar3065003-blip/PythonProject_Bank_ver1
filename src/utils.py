@@ -1,3 +1,4 @@
+import re
 from typing import Any
 from logs.logger_utils import setup_logging_utils
 from src import external_api
@@ -6,6 +7,7 @@ import json
 
 
 def dict_transactions_to_json(file_json_dict: str = "") -> list[dict[Any, Any]]:
+    """Для обработки выбран JSON-файл."""
     try:
         data_json = json.load(open(file_json_dict, "r", encoding="utf-8"))
         data = []
@@ -28,7 +30,6 @@ def dict_transactions_to_json(file_json_dict: str = "") -> list[dict[Any, Any]]:
 
 
 
-
 def convertation_currency(transaction: dict) -> float:
     """Принимает транзакцию в виде словаря и возвращает сумму транзакции,
     конвертированную в рубли по курсу на сегодняшний день, либо просто в рублях"""
@@ -41,3 +42,9 @@ def convertation_currency(transaction: dict) -> float:
     result_return: float = external_api.exchange_rates_data(currency, amount)
     logger.info(f"Совершена операция обмена {currency} в рубли на сумму {amount}")
     return result_return
+
+
+def filter_by_word(transaction: list[dict], word: str) -> list[dict]:
+    """Функция поиска транзакций по слову в словаре"""
+    filter_data = [data for data in transaction if re.search(word.lower(), data.get("description", "").lower())]
+    return filter_data
