@@ -2,30 +2,30 @@ import re
 from collections import Counter
 
 
-def process_bank_search(data:list[dict], search:str)->list[dict]:
-    """ Функция принимает список банковских странзакций и возвращает
+def process_bank_search(data: list[dict], search: str) -> list[dict]:
+    """Функция принимает список банковских странзакций и возвращает
     список транзакций отфильтрованных по запросу"""
     search_result = []
     for item in data:
-        if re.search(search, item['description'], flags=re.IGNORECASE):
+        if re.search(search, item["description"], flags=re.IGNORECASE):
             search_result.append(item)
 
     return search_result
 
 
-def process_bank_operations(data:list[dict], categories:list)->dict:
-    """ Функция принимает список транзакций,а возвращает словарь,
-     где отражается вид и считает количество запрошенных операций"""
+def process_bank_operations(data: list[dict], categories: list) -> dict:
+    """Функция принимает список транзакций,а возвращает словарь,
+    где отражается вид и считает количество запрошенных операций"""
     matched_categories = []
     compiled_patterns = {}
 
     for category in categories:
-         escaped_category = re.escape(category.lower())
-         pattern = r'\b' + escaped_category + r'\b'
-         compiled_patterns[category] = re.compile(pattern, re.IGNORECASE)
+        escaped_category = re.escape(category.lower())
+        pattern = r"\b" + escaped_category + r"\b"
+        compiled_patterns[category] = re.compile(pattern, re.IGNORECASE)
 
     for transaction in data:
-        description = transaction.get('description', '').lower()
+        description = transaction.get("description", "").lower()
         if not description:
             continue
 

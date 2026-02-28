@@ -2,6 +2,7 @@ import logging
 from logging import Logger
 from pathlib import Path
 
+
 def setup_logging_utils() -> Logger:
     """Логирование функции utils с записью в файл application"""
     # Получаем абсолютный путь к папке logs относительно текущего файла
@@ -20,9 +21,7 @@ def setup_logging_utils() -> Logger:
     try:
         # Обработчик файла — используем абсолютный путь
         file_handler = logging.FileHandler(log_file, mode="a", encoding="utf-8")
-        formatter = logging.Formatter(
-            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-        )
+        formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
     except Exception as e:

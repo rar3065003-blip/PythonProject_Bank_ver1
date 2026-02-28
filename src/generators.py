@@ -1,18 +1,11 @@
-import os
 from typing import Generator
 from typing import Iterator
 
-from src.utils import dict_transactions_to_json
 
 
 def filter_by_currency(transactions: list[dict], code: str) -> Iterator:
     """Принимает список словарей транзакций возвращает список отфильтрованный по коду валюты"""
-    return (
-        transaction
-        for transaction in transactions
-        if transaction.get("currency_code", {}) == code
-    )
-
+    return (transaction for transaction in transactions if transaction.get("currency_code", {}) == code)
 
 
 def transaction_descriptions(transactions: list[dict]) -> Iterator:

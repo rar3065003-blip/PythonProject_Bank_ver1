@@ -15,16 +15,13 @@ def setup_logging() -> Logger:
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.DEBUG)
 
-
     # Очищаем существующие обработчики, чтобы избежать дублирования логов
     logger.handlers.clear()
 
     try:
         # Обработчик файла — используем абсолютный путь
         file_handler = logging.FileHandler(log_file, mode="a", encoding="utf-8")
-        formatter = logging.Formatter(
-            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-        )
+        formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
     except Exception as e:
