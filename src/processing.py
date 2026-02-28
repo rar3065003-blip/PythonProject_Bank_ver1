@@ -1,5 +1,5 @@
 def filter_by_state(user_calculate: list, state: str = "EXECUTED") -> list:
-    """принимает список словарей и возвращает новый список словарей по значению 'state'"""
+    """Принимает список словарей и возвращает новый список словарей по значению 'state'"""
     result_selection = []
     for dict_operation in user_calculate:
         if dict_operation["state"] == state:

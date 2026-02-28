@@ -2,16 +2,13 @@ from typing import Generator
 from typing import Iterator
 
 
-def filter_by_currency(transactions: list, code: str) -> Iterator:
+
+def filter_by_currency(transactions: list[dict], code: str) -> Iterator:
     """Принимает список словарей транзакций возвращает список отфильтрованный по коду валюты"""
-    return (
-        transaction
-        for transaction in transactions
-        if transaction.get("operationAmount", {}).get("currency", {}).get("code") == code
-    )
+    return (transaction for transaction in transactions if transaction.get("currency_code", {}) == code)
 
 
-def transaction_descriptions(transactions: list) -> Iterator:
+def transaction_descriptions(transactions: list[dict]) -> Iterator:
     """Принимает список словарей транзакций возвращает действие со счетом"""
     for transaction in transactions:
         yield transaction.get("description")

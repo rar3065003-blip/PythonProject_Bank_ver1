@@ -1,34 +1,38 @@
-import json
-import logging
-import os
-from json import JSONDecodeError
+import re
+from typing import Any
 
-from config import ROOT_DIR
 from logs.logger_utils import setup_logging_utils
 from src import external_api
 
 logger = setup_logging_utils()
+import json
 
 
-def dict_transactions(file_json_dict: str) -> list[dict]:
-    """Принимает json файл и возвращает список транзакций в формате *.py"""
-    logging.info("Запуск функции dict_transactions")
-    list_result: list = []
-    path_filename: str = f"{ROOT_DIR}{file_json_dict}"
-    file_exist: bool = os.path.exists(path_filename)
-    if not file_exist:
-        logger.error("Файл отсутствует")
-        return list_result
-    with open(path_filename, encoding="utf8") as f:
-        try:
-            x = json.load(f)
-        except JSONDecodeError:
-            logger.error("Не корректный формат файла")
-            return list_result
-    if not isinstance(x, list):
-        logger.error("Файл пуст")
-        return list_result
-    return x
+def dict_transactions_to_json(file_json_dict: str = "") -> list[dict[Any, Any]]:
+    """Для обработки выбран JSON-файл."""
+    try:
+        data_json = json.load(open(file_json_dict, "r", encoding="utf-8"))
+        data = []
+        for transaction in data_json:
+            amount = transaction.get("operationAmount", {}).get("amount")
+            currency_name = transaction.get("operationAmount", {}).get("currency", {}).get("name")
+            currency_code = transaction.get("operationAmount", {}).get("currency", {}).get("code")
+            data.append(
+                {
+                    "id": transaction.get("id"),
+                    "state": transaction.get("state"),
+                    "date": transaction.get("date"),
+                    "amount": amount,
+                    "currency_name": currency_name,
+                    "currency_code": currency_code,
+                    "from": transaction.get("from"),
+                    "to": transaction.get("to"),
+                    "description": transaction.get("description"),
+                }
+            )
+        return data
+    except Exception:
+        return []
 
 
 def convertation_currency(transaction: dict) -> float:
@@ -43,3 +47,9 @@ def convertation_currency(transaction: dict) -> float:
     result_return: float = external_api.exchange_rates_data(currency, amount)
     logger.info(f"Совершена операция обмена {currency} в рубли на сумму {amount}")
     return result_return
+
+
+def filter_by_word(transaction: list[dict], word: str) -> list[dict]:
+    """Функция поиска транзакций по слову в словаре"""
+    filter_data = [data for data in transaction if re.search(word.lower(), data.get("description", "").lower())]
+    return filter_data
